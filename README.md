@@ -1,7 +1,10 @@
 # compose
 [![](https://jitpack.io/v/chanjungkim/compose.svg)](https://jitpack.io/#chanjungkim/compose)
 
-This project will keep updated some features that compose doesn't provide. `scroll bar` is the first thing.
+This project will keep updated some features that compose doesn't provide.
+
+1. `scroll bar` is the first thing. compose doesn't provide scrollbar.
+2. What else?
 
 # Setup
 
