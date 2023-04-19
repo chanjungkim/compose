@@ -1,6 +1,8 @@
 # compose
 [![](https://jitpack.io/v/chanjungkim/compose.svg)](https://jitpack.io/#chanjungkim/compose)
 
+This project will keep updated some features that compose doesn't provide. `scroll bar` is the first thing.
+
 # Setup
 
 To get a Git project into your build:
