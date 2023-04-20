@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.github.chanjungkim.compose.ui.theme.MyApplicationTheme
@@ -44,7 +45,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MyApplicationTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
@@ -59,6 +59,13 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Sample() {
     ScrollColumn(
+        scrollbarSource = ScrollbarSource(
+            fadeDuration = 500,
+            thumbColor = Color(0xFF38BCF8),
+            thickness = 5.dp,
+            trackColor = Color.LightGray.copy(alpha = 0.5f),
+            radius = 8.dp
+        ),
         verticalArrangement = Arrangement.spacedBy(15.dp),
         modifier = Modifier.padding(15.dp)
     ) {
