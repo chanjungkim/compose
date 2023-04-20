@@ -41,13 +41,4 @@ fun Greeting(name: String) {
 }
 ```
 
-```
-@Composable
-fun Greeting(name: String) {
-    LazyScrollColumn{
-        repeat(100) {
-            Text("Hello $name!")
-        }
-    }
-}
-```
+[Column Scrollbar Video example](https://www.youtube.com/shorts/HfyB6nMHheM)
