@@ -41,4 +41,4 @@ fun Greeting(name: String) {
 }
 ```
 
-[Column Scrollbar Video example](https://www.youtube.com/shorts/HfyB6nMHheM)
+![compose-scrollabar](https://user-images.githubusercontent.com/19689773/233661167-5e42a274-6296-487c-9f8f-67ec915b3622.gif)
