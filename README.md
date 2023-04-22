@@ -30,12 +30,25 @@ dependencies {
 
 # Usage
 
-## Scroll
+## Scroll Scolumns
+
+They are the extension of Column and LazyColumn.
+You can pass `ScrollbarSource` to change the scrollbar's height, thickness, radius, thumbColor, trackColor and also fadeDuration.
+
+### ScrollColumn
 
 ```
 @Composable
 fun Greeting(name: String) {
-    ScrollColumn{
+    ScrollColumn(
+        scrollbarSource = ScrollbarSource(
+            fadeDuration = 500,
+            thumbColor = Color(0xFF38BCF8),
+            thickness = 5.dp,
+            trackColor = Color.LightGray.copy(alpha = 0.5f),
+            radius = 8.dp
+        )
+    ){
         repeat(100) {
             Text("Hello $name!")
         }
@@ -43,17 +56,12 @@ fun Greeting(name: String) {
 }
 ```
 
+### LazyScrollColumn
+
 ```
 @Composable
 fun Greeting(name: String) {
     LazyScrollColumn(
-        scrollbarSource = ScrollbarSource(
-            fadeDuration = 500,
-            thumbColor = Color(0xFF38BCF8),
-            thickness = 5.dp,
-            trackColor = Color.LightGray.copy(alpha = 0.5f),
-            radius = 8.dp
-        ),
         verticalArrangement = Arrangement.spacedBy(15.dp),
         modifier = Modifier.padding(15.dp)
     ) {
