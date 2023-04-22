@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -58,7 +59,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Sample() {
-    ScrollColumn(
+    LazyScrollColumn(
         scrollbarSource = ScrollbarSource(
             fadeDuration = 500,
             thumbColor = Color(0xFF38BCF8),
@@ -69,7 +70,7 @@ fun Sample() {
         verticalArrangement = Arrangement.spacedBy(15.dp),
         modifier = Modifier.padding(15.dp)
     ) {
-        puppies.forEach {
+        items(puppies){
             PuppyItem(
                 data = it,
                 modifier = Modifier

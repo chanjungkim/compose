@@ -31,7 +31,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
@@ -64,7 +63,7 @@ fun ScrollColumn(
             }
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .verticalScroll(scrollState),
             verticalArrangement = verticalArrangement,
             horizontalAlignment = horizontalAlignment,
