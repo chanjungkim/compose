@@ -30,12 +30,39 @@ dependencies {
 
 # Usage
 
+## Scroll
+
 ```
 @Composable
 fun Greeting(name: String) {
     ScrollColumn{
         repeat(100) {
             Text("Hello $name!")
+        }
+    }
+}
+```
+
+```
+@Composable
+fun Greeting(name: String) {
+    LazyScrollColumn(
+        scrollbarSource = ScrollbarSource(
+            fadeDuration = 500,
+            thumbColor = Color(0xFF38BCF8),
+            thickness = 5.dp,
+            trackColor = Color.LightGray.copy(alpha = 0.5f),
+            radius = 8.dp
+        ),
+        verticalArrangement = Arrangement.spacedBy(15.dp),
+        modifier = Modifier.padding(15.dp)
+    ) {
+        items(puppies){
+            PuppyItem(
+                data = it,
+                modifier = Modifier
+                    .fillMaxWidth()
+            )
         }
     }
 }
