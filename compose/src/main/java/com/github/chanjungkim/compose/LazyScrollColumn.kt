@@ -27,6 +27,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
@@ -62,39 +63,21 @@ fun LazyScrollColumn(
     val coroutineScope = rememberCoroutineScope()
     var scrollbarOffsetY by remember { mutableStateOf(0) }
     var layoutHeight by remember { mutableStateOf(0) }
-    var scrollbarState by remember { mutableStateOf<ScrollbarState>(ScrollbarState.Idle) }
-    var prevScrollbarOffsetY by rememberSaveable { mutableStateOf(0) }
-    var prevScrollOffset by rememberSaveable { mutableStateOf(0) }
-    var prevItemIndex by rememberSaveable { mutableStateOf(0) }
+    val offsetLists by remember { mutableStateOf(MutableList(1) { 0 }) }
 
     LaunchedEffect(state.firstVisibleItemScrollOffset) {
-
-        scrollbarState = when {
-            prevItemIndex < state.firstVisibleItemIndex || prevScrollOffset < state.firstVisibleItemScrollOffset -> ScrollbarState.ScrollingUp
-            prevItemIndex > state.firstVisibleItemIndex || prevScrollOffset > state.firstVisibleItemScrollOffset -> ScrollbarState.ScrollingDown
-            else -> ScrollbarState.Idle
+        if(offsetLists.size <= state.firstVisibleItemIndex) {
+            offsetLists.add(state.firstVisibleItemScrollOffset)
         }
-        Log.d("aos", "${scrollbarState}: scrollbarOffsetY: $scrollbarOffsetY, lazyListState.firstVisibleItemIndex: ${state.firstVisibleItemIndex}, lazyListState.firstVisibleItemScrollOffset: ${state.firstVisibleItemScrollOffset}")
-
-        val offsetDiff = prevScrollOffset - state.firstVisibleItemScrollOffset
-
-        when (scrollbarState) {
-            ScrollbarState.ScrollingUp -> {
-                if(offsetDiff > 0) {
-                    scrollbarOffsetY = prevScrollOffset + state.firstVisibleItemScrollOffset
-                } else {
-                    scrollbarOffsetY = prevScrollOffset
-                }
-            }
-            ScrollbarState.ScrollingDown -> {
-
-            }
-            ScrollbarState.Idle -> {
-                // no-op
+        offsetLists.forEachIndexed { index, i ->
+            if(index > state.firstVisibleItemIndex) {
+                offsetLists[index] = 0
+            } else if(index < state.firstVisibleItemIndex) {
+                offsetLists[index] = state.layoutInfo.visibleItemsInfo[index].size + state.layoutInfo.mainAxisItemSpacing
             }
         }
-        prevScrollOffset = state.firstVisibleItemScrollOffset
-        prevItemIndex = state.firstVisibleItemIndex
+        offsetLists[state.firstVisibleItemIndex] = state.firstVisibleItemScrollOffset
+        scrollbarOffsetY = offsetLists.sum()
     }
 
     Box(
@@ -109,6 +92,9 @@ fun LazyScrollColumn(
                 .height(with(LocalDensity.current) {
                     layoutHeight.toDp()
                 }),
+            contentPadding = contentPadding,
+            flingBehavior = flingBehavior,
+            userScrollEnabled = userScrollEnabled,
             verticalArrangement = verticalArrangement,
             horizontalAlignment = horizontalAlignment,
         ) {
