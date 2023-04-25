@@ -62,6 +62,13 @@ fun Greeting(name: String) {
 @Composable
 fun Greeting(name: String) {
     LazyScrollColumn(
+        scrollbarSource = ScrollbarSource(
+            fadeDuration = 500,
+            thumbColor = Color(0xFF38BCF8),
+            thickness = 5.dp,
+            trackColor = Color.LightGray.copy(alpha = 0.5f),
+            radius = 8.dp
+        ),
         verticalArrangement = Arrangement.spacedBy(15.dp),
         modifier = Modifier.padding(15.dp)
     ) {
