@@ -76,15 +76,19 @@ fun Sample() {
         itemsIndexed(items = puppies) { index, item ->
             PuppyItem(
                 data = item,
-                modifier = if (index == 0) {
-                    Modifier
-                        .padding(top = 15.dp)
-                        .then(modifier)
-                } else if (index == puppies.size - 1) {
-                    Modifier
-                        .padding(bottom = 15.dp)
-                        .then(modifier)
-                } else modifier
+                modifier = when (index) {
+                    0 -> {
+                        Modifier
+                            .padding(top = 15.dp)
+                            .then(modifier)
+                    }
+                    puppies.size - 1 -> {
+                        Modifier
+                            .padding(bottom = 15.dp)
+                            .then(modifier)
+                    }
+                    else -> modifier
+                }
             )
         }
     }
