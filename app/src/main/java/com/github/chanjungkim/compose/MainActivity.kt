@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -68,13 +68,23 @@ fun Sample() {
             radius = 8.dp
         ),
         verticalArrangement = Arrangement.spacedBy(15.dp),
-        modifier = Modifier.padding(15.dp)
+        modifier = Modifier
     ) {
-        items(puppies){
+        val modifier = Modifier
+            .padding(horizontal = 15.dp)
+            .fillMaxWidth()
+        itemsIndexed(items = puppies) { index, item ->
             PuppyItem(
-                data = it,
-                modifier = Modifier
-                    .fillMaxWidth()
+                data = item,
+                modifier = if (index == 0) {
+                    Modifier
+                        .padding(top = 15.dp)
+                        .then(modifier)
+                } else if (index == puppies.size - 1) {
+                    Modifier
+                        .padding(bottom = 15.dp)
+                        .then(modifier)
+                } else modifier
             )
         }
     }
