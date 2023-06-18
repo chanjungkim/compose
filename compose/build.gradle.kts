@@ -30,7 +30,6 @@ android {
 }
 
 dependencies {
-    implementation("com.github.jitpack:gradle-simple:2.0")
     api(libs.core.ktx)
     api(libs.lifecycle.runtime.ktx)
     api(libs.activity.compose)
