@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
+import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.Orientation
 import androidx.compose.foundation.gestures.animateScrollBy
@@ -36,12 +37,12 @@ import kotlinx.coroutines.launch
 @Composable
 fun ScrollColumn(
     scrollbarSource: ScrollbarSource = ScrollbarSource(),
+    scrollState: ScrollState = rememberScrollState(),
     modifier: Modifier = Modifier,
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start,
     content: @Composable ColumnScope.() -> Unit
 ) {
-    val scrollState = rememberScrollState()
     val coroutineScope = rememberCoroutineScope()
     var scrollbarOffsetY by remember { mutableStateOf(scrollState.value) }
     var layoutHeight by remember { mutableStateOf(0) }
@@ -57,14 +58,13 @@ fun ScrollColumn(
     }
 
     Box(
-        modifier = modifier
+        modifier = Modifier
             .onGloballyPositioned {
                 layoutHeight = it.size.height
             }
     ) {
         Column(
-            modifier = Modifier
-                .verticalScroll(scrollState),
+            modifier = modifier.verticalScroll(scrollState),
             verticalArrangement = verticalArrangement,
             horizontalAlignment = horizontalAlignment,
         ) {
